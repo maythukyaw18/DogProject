@@ -1,0 +1,84 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<br />
+
+{% if name: %}
+        <div class="container">
+            <div class="row">
+                <div class="column">
+                    <div class="card" style="width: 60%">                       
+                            <img src="{{name['image_url']}}" loading="lazy" width="100%">                      
+                        <div class="card-body">
+                            <h3 class="card-title"> {{ name['name'] }} </h3>       
+                            <div> {{ name['temperament']}} </div>
+                            <div> {{ name['life_span']}} </div>
+                            <div> {{ name['weight']}} kg </div>
+                           
+                        </div>
+                        <div calss="card-footer">
+                            <form action="/like" method="POST">
+                                
+                                <input type="hidden" name="id" value="{{name['id']}}" />
+                                <input type="hidden" name="name" value="{{name['name']}}" />
+                                
+
+                                {% if name['isLiked']==1 %}
+                                    <button class="btn btn-info btn-full">Disike</button>
+                                {% else %}
+                                    <button class="btn btn-info btn-full">Like</button>
+                                {% endif %}
+
+                            </form>
+                            
+                        </div>
+                    </div>                   
+                </div>  
+            </div>
+        </div>
+            
+        
+ {% endif %}
+
+ {% if favorites: %}
+
+    <div class="container">
+        <div class="row">
+            {% for favorite in favorites %}
+            <div class="col-4">
+                <div class="card">
+                    <div class="custom-card-header">
+                        <img class="fav-image" src="{{favorite['image_url']}}" loading="lazy" width="100%">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title"> {{ favorite['name'] }} </h3>       
+                        <div> {{ favorite['temperament']}} </div>
+                        <div> {{ favorite['life_span']}} </div>
+                        <div> {{ favorite['weight']}} kg </div>
+                    
+                    </div>
+                    <div calss="card-footer">
+                        <form action="/like" method="POST">
+                            
+                            <input type="hidden" name="id" value="{{favorite['id']}}" />
+                            <input type="hidden" name="name" value="{{favorite['name']}}" />
+                            
+
+                            {% if favorite['isLiked']==1 %}
+                                <button class="btn btn-info btn-full">Disike</button>
+                            {% else %}
+                                <button class="btn btn-info btn-full">Like</button>
+                            {% endif %}
+
+                        </form>
+                        
+                    </div>
+                </div>                   
+            </div> 
+            {% endfor %} 
+        </div>
+    </div>
+
+ {% endif %}
+
+{% endblock %}
